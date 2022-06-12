@@ -71,7 +71,7 @@ class Evaluation(object):
         self.display_env = display_env
 
         self.directory = Path(directory or self.default_directory)
-        self.run_directory = self.directory / (run_directory or self.default_run_directory)
+        self.run_directory = Path(run_directory) or (self.directory / self.default_run_directory)
         self.wrapped_env = RecordVideo(env,
                                        self.run_directory,
                                        episode_trigger=(None if self.display_env else lambda e: False))

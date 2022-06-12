@@ -16,6 +16,7 @@ Options:
   --train                Train the agent.
   --test                 Test the agent.
   --verbose              Set log level to debug instead of info.
+  --run-name <file>      Name of directory for output
   --repeat <times>       Repeat several times [default: 1].
 """
 import datetime
@@ -59,7 +60,9 @@ def evaluate(environment_config, agent_config, options):
     env = load_environment(environment_config)
     agent = load_agent(agent_config, env)
     run_directory = None
-    if options['--name-from-config']:
+    if options['--run-name']:
+        run_directory = options['--run-name']
+    elif options['--name-from-config']:
         run_directory = "{}_{}_{}".format(Path(agent_config).with_suffix('').name,
                                   datetime.datetime.now().strftime('%Y%m%d-%H%M%S'),
                                   os.getpid())
